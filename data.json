@@ -1,14 +1,81 @@
-{
-  "title": "Partez à l'aventure avec Dexter, le van qui transforme chaque route en liberté.",
-  "description": "Dexter, c’est le parfait équilibre entre confort et compacité. Avec ses 4 places carte grise et ses équipements tout confort (toilettes, douche, cuisine, panneaux solaires), il est idéal pour les familles comme pour les couples en quête d’évasion.",
-  "tech": {
-    "model": "Fiat Ducato",
-    "places_card": 4,
-    "places_bed": 3,
-    "equipment": ["WC", "Douche", "Cuisine", "Solaire"],
-    "year": "2023",
-    "location": "Suisse"
-  },
-  "reservedDates": ["2025-07-10", "2025-07-11"],
-  "contactEmail": "contact@locvan.ch"
+import { useState } from 'react'
+import { Calendar } from '@/components/ui/calendar'
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+
+export default function LocationVan() {
+  const [selectedDate, setSelectedDate] = useState(new Date())
+  const [reservedDates, setReservedDates] = useState(["2025-07-10", "2025-07-11", "2025-07-18"])
+
+  const handleDateSelect = (date) => {
+    setSelectedDate(date)
+  }
+
+  const isDateReserved = (date) => {
+    const formatted = date.toISOString().split('T')[0]
+    return reservedDates.includes(formatted)
+  }
+
+  const reserveForMe = () => {
+    const formatted = selectedDate.toISOString().split('T')[0]
+    if (!reservedDates.includes(formatted)) {
+      setReservedDates([...reservedDates, formatted])
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: 'url(/van_photo.jpg)' }}>
+      <div className="bg-white/90 p-6 max-w-3xl mx-auto rounded-2xl shadow-xl mt-10">
+        <h1 className="text-3xl font-bold text-center mb-4">Partez à l'aventure avec Dexter, le van qui transforme chaque route en liberté.</h1>
+
+        <p className="text-center text-gray-700 mb-8">
+          Dexter, c’est le parfait équilibre entre confort et compacité. Avec ses 4 places carte grise et ses équipements tout confort (toilettes, douche, cuisine, panneaux solaires), il est idéal pour les familles comme pour les couples en quête d’évasion. Voyagez léger, voyagez libre. Dexter s’occupe du reste.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardContent className="p-4">
+              <h2 className="text-xl font-semibold mb-2">Données techniques & infos</h2>
+              <ul className="list-disc list-inside text-sm">
+                <li>Modèle : À renseigner</li>
+                <li>Places carte grise : 4</li>
+                <li>Places couchage : 3</li>
+                <li>Équipements : WC, Douche, Cuisine, Panneaux solaires</li>
+                <li>Année : À renseigner</li>
+                <li>Localisation : À renseigner</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-4">
+              <h2 className="text-xl font-semibold mb-2">Calendrier de réservation</h2>
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={handleDateSelect}
+                modifiers={{
+                  reserved: (date) => isDateReserved(date)
+                }}
+                modifiersClassNames={{
+                  reserved: 'bg-red-400 text-white'
+                }}
+              />
+              <Button className="mt-4 w-full" onClick={reserveForMe}>
+                Réserver cette date pour moi
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="mt-6 text-center">
+          <a href="mailto:contact@locvan.ch">
+            <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-xl">
+              Réserver ce van
+            </Button>
+          </a>
+        </div>
+      </div>
+    </div>
+  )
 }
