@@ -1,0 +1,14 @@
+{
+  "title": "Partez à l'aventure avec Dexter, le van qui transforme chaque route en liberté.",
+  "description": "Dexter, c’est le parfait équilibre entre confort et compacité. Avec ses 4 places carte grise et ses équipements tout confort (toilettes, douche, cuisine, panneaux solaires), il est idéal pour les familles comme pour les couples en quête d’évasion.",
+  "tech": {
+    "model": "Fiat Ducato",
+    "places_card": 4,
+    "places_bed": 3,
+    "equipment": ["WC", "Douche", "Cuisine", "Solaire"],
+    "year": "2023",
+    "location": "Suisse"
+  },
+  "reservedDates": ["2025-07-10", "2025-07-11"],
+  "contactEmail": "contact@locvan.ch"
+}
